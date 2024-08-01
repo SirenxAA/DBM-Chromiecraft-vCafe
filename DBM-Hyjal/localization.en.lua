@@ -1,5 +1,5 @@
 local L
-
+--Added additional phrases to catch Archimonde Doomfire Cafe2024.05.31
 ------------------------
 --  Rage Winterchill  --
 ------------------------
@@ -45,6 +45,11 @@ L:SetGeneralLocalization({
 	name = "Archimonde"
 })
 
+L:SetMiscLocalization({
+	ArchimondeDoomfireYell1 = "This world will burn!",
+	ArchimondeDoomfireYell2 = "Manach sheek-thrish!"
+})
+
 ----------------
 -- WaveTimers --
 ----------------
@@ -69,11 +74,11 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	HyjalZoneName	= "Hyjal Summit",
+	HyjalZoneName		= "Hyjal Summit",
 	Thrall			= "Thrall",
 	Jaina			= "Lady Jaina Proudmoore",
 	GeneralBoss		= "Boss incoming",
-	RageWinterchill	= "Rage Winterchill incoming",
+	RageWinterchill		= "Rage Winterchill incoming",
 	Anetheron		= "Anetheron incoming",
 	Kazrogal		= "Kazrogal incoming",
 	Azgalor			= "Azgalor incoming",
@@ -85,9 +90,9 @@ L:SetMiscLocalization({
 	WarnWave_4		= "Wave %s/8 - %s %s, %s %s, %s %s and %s %s",
 	WarnWave_5		= "Wave %s/8 - %s %s, %s %s, %s %s, %s %s and %s %s",
 	RageGossip		= "My companions and I are with you, Lady Proudmoore.",
-	AnetheronGossip	= "We are ready for whatever Archimonde might send our way, Lady Proudmoore.",
-	KazrogalGossip	= "I am with you, Thrall.",
-	AzgalorGossip	= "We have nothing to fear.",
+	AnetheronGossip		= "We are ready for whatever Archimonde might send our way, Lady Proudmoore.",
+	KazrogalGossip		= "I am with you, Thrall.",
+	AzgalorGossip		= "We have nothing to fear.",
 	Ghoul			= "Ghouls",
 	Abomination		= "Abominations",
 	Necromancer		= "Necromancers",
