@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Archimonde", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528vCafe240727")
+mod:SetRevision("20220518110528vCafe240808")
 mod:SetCreatureID(17968)
 mod:SetZone()
 mod:SetUsedIcons(8)
@@ -25,9 +25,11 @@ local yellBurst			= mod:NewYell(32014)
 local timerFearCD		= mod:NewCDTimer(42, 31970, nil, nil, nil, 2)
 local timerGripCD		= mod:NewCDTimer(6, 31972, nil, "Decurse", nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerBurstCD		= mod:NewCDTimer(25, 32014, nil, nil, nil, 2) --new CD added 20240531 Cafe
-local timerDoomfireCD	= mod:NewCDTimer(8, 31945, nil, nil, nil, 2) --updated time on 2024.07.27
+local timerDoomfireCD		= mod:NewCDTimer(8, 31945, nil, nil, nil, 2) --updated time on 2024.07.27
 
 local berserkTimer		= mod:NewBerserkTimer(600)
+
+local specWarnDoomfire		= mod:NewSpecialWarningGTFO(31944, nil, nil, nil, 1, 6) --newly added 2024.08.08 Doomfire spam
 
 mod:AddSetIconOption("BurstIcon", 32014, true, false, {8})
 
@@ -51,6 +53,13 @@ function mod:OnCombatStart(delay)
 	timerDoomfireCD:Start(8-delay) --updated 20240727 Cafe
 	timerGripCD:Start(25+2-delay)
 	timerBurstCD:Start(25-delay)
+	if not self:IsTrivial() then --newly added 2024.08.08 Doomfire spam
+		self:RegisterShortTermEvents(
+			"SPELL_DAMAGE 31944",
+			"SPELL_MISSED 31944"
+		)
+	end
+
 end
 
 
@@ -79,3 +88,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg) --new CD added 20240531 Cafe, need to us
 		timerDoomfireCD:Start()
 	end
 end
+
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName) --newly added 2024.08.08 Doomfire spam
+	if spellId == 31944 and destGUID == UnitGUID("player") and self:AntiSpam() then
+		specWarnDoomfire:Show(spellName)
+		specWarnDoomfire:Play("watchfeet")
+	end
+end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
